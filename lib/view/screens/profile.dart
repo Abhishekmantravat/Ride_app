@@ -12,14 +12,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
-        title: Text("Profile", style: TextStyle(color: Colors.black)),
-        leading: BackButton(
+        title: const Text("Profile", style: TextStyle(color: Colors.black)),
+        leading: const BackButton(
           color: Colors.black,
         ),
       ),
       body: SingleChildScrollView(
           child: Container(
-              padding: EdgeInsets.only(top: 30),
+              padding: const EdgeInsets.only(top: 30),
               child: Column(children: [
                 Container(
                   child: Column(children: [
@@ -59,10 +59,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     const SizedBox(
                       height: 14,
                     ),
-                    Text("Abhishek Mishra",
+                    const Text("Abhishek Mishra",
                         style: TextStyle(
-                            color: const Color.fromARGB(255, 0, 0, 0))),
-                    Text(
+                            color: Color.fromARGB(255, 0, 0, 0))),
+                    const Text(
                       "6386444795",
                       style: TextStyle(color: Color.fromARGB(255, 48, 45, 45)),
                     ),
@@ -78,65 +78,65 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ]),
                 ),
                 Container(
-                  padding: EdgeInsets.only(left: 20, right: 20),
+                  padding: const EdgeInsets.only(left: 20, right: 20),
                   child: Column(
                     children: [
                       TextFormField(
-                        style: TextStyle(color: Colors.grey),
+                        style: const TextStyle(color: Colors.grey),
                         
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),
-                          focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(color: Colors.grey)),
+                          focusedBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey)),
                           labelText: "Name",
-                          labelStyle: TextStyle(color: Colors.grey),
-                          prefixIcon: Icon(Icons.person_2),
+                          labelStyle: const TextStyle(color: Colors.grey),
+                          prefixIcon: const Icon(Icons.person_2),
                           prefixIconColor: Colors.grey,
                         ),
                       ),
                       
-                      SizedBox(
+                      const SizedBox(
                         height: 15,
                       ),
                       TextFormField(
-                        style: TextStyle(color: Colors.grey),
+                        style: const TextStyle(color: Colors.grey),
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),
-                          focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(color: Colors.grey)),
+                          focusedBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey)),
                           labelText: "About",
-                          prefixIcon: Icon(Icons.more),
+                          prefixIcon: const Icon(Icons.more),
                           prefixIconColor: Colors.grey,
-                          labelStyle: TextStyle(color: Colors.grey),
+                          labelStyle: const TextStyle(color: Colors.grey),
                         ),
                       ),
                       
                      
-                      SizedBox(
+                      const SizedBox(
                         height: 15,
                       ),
 
                       TextFormField(
-                        style: TextStyle(color: Colors.grey),
+                        style: const TextStyle(color: Colors.grey),
                         
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),
-                          focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(color: Colors.grey)),
+                          focusedBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey)),
                           labelText: "Phone no",
-                          labelStyle: TextStyle(color: Colors.grey),
-                          prefixIcon: Icon(Icons.phone),
+                          labelStyle: const TextStyle(color: Colors.grey),
+                          prefixIcon: const Icon(Icons.phone),
                           prefixIconColor: Colors.grey,
                         ),
                       ),
 
- SizedBox(
+ const SizedBox(
                         height: 15,
                       ),
                     
@@ -149,7 +149,7 @@ child:DecoratedBox(decoration: BoxDecoration(
 ),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
-                      onPressed: () {}, child: Text("Update Information",style: TextStyle(color:Colors.white),)),
+                      onPressed: () {}, child: const Text("Update Information",style: TextStyle(color:Colors.white),)),
   )  ),
                     ],
                   ),

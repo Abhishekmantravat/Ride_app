@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:rideapp/views/screens/homescreen.dart';
-import 'package:rideapp/views/screens/phone_verification.dart';
+import 'package:rideapp/view/driver/driverhome_page.dart';
+import 'package:get/get.dart';
+import 'package:rideapp/view/screens/phone_verification.dart';
+import 'res/constant/hight.dart';
 
-void main() {
+void main() async{
   runApp(const MyApp());
 }
 
@@ -12,7 +14,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+        final screenHeight = ScreenUtil.screenHeight(context);
+
+    return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
 
@@ -36,10 +40,9 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
           // body:phonelogin(),
-// 
-      body:homescreen(),
-      
-      
+//
+      body:phonelogin(),
+
     );
   }
 }
