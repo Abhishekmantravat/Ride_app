@@ -15,7 +15,7 @@ class button extends StatelessWidget {
                                 child: DecoratedBox(
                                     decoration: BoxDecoration(
                                         color:buttoncolor ,
-                                        borderRadius: BorderRadius.circular(5)),
+                                        borderRadius: BorderRadius.circular(20)),
                                     child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
                                             backgroundColor:  buttoncolor ,),

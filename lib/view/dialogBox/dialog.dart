@@ -11,108 +11,113 @@ void showCustomDialog(BuildContext context) {
     isScrollControlled: true,
     // backgroundColor: Colors.black,
     backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-    builder: (BuildContext context) => Container(
-      padding: EdgeInsets.only(
-        bottom: MediaQuery.of(context).viewInsets.bottom,
-      ),
-      child: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.55,
-        child: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              children: [
-                const SizedBox(
-                    width: 80,
-                    child: Divider(
-                      color: Colors.grey,
-                      height: 30,
-                      thickness: 3,
-                      indent: 5,
-                      endIndent: 5,
-                    )),
-                Container(
-                  padding: const EdgeInsets.only(left: 10, right: 10, top: 20),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      TextFormField(
-                        onChanged: (value) {
-                          // setState(() {
-                          //   // description = value;
-                          // });
-                        },
-                        style: const TextStyle(color: Colors.black),
-                        decoration: const InputDecoration(
-                          labelText: "Your location",
-                          labelStyle: TextStyle(color: Colors.black),
+    builder: (BuildContext context) => GestureDetector(
+      onTap:(){
+          FocusScope.of(context).requestFocus(FocusNode());
+        },
+      child: Container(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height * 0.55,
+          child: SingleChildScrollView(
+            child: Center(
+              child: Column(
+                children: [
+                  const SizedBox(
+                      width: 80,
+                      child: Divider(
+                        color: Colors.grey,
+                        height: 30,
+                        thickness: 3,
+                        indent: 5,
+                        endIndent: 5,
+                      )),
+                  Container(
+                    padding: const EdgeInsets.only(left: 10, right: 10, top: 20),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        TextFormField(
+                          onChanged: (value) {
+                            // setState(() {
+                            //   // description = value;
+                            // });
+                          },
+                          style: const TextStyle(color: Colors.black),
+                          decoration: const InputDecoration(
+                            labelText: "Your location",
+                            labelStyle: TextStyle(color: Colors.black),
+                          ),
+                          autofocus: true,
                         ),
-                        autofocus: true,
-                      ),
-                      TextFormField(
-                        onChanged: (value) {
-                          // setState(() {
-                          //   // description = value;
-                          // });
-                        },
-                        style: const TextStyle(color: Colors.black),
-                        decoration: const InputDecoration(
-                          labelText: "Destination",
-                          labelStyle: TextStyle(color: Colors.black),
+                        TextFormField(
+                          onChanged: (value) {
+                            // setState(() {
+                            //   // description = value;
+                            // });
+                          },
+                          style: const TextStyle(color: Colors.black),
+                          decoration: const InputDecoration(
+                            labelText: "Destination",
+                            labelStyle: TextStyle(color: Colors.black),
+                          ),
+                          autofocus: true,
                         ),
-                        autofocus: true,
-                      ),
-                      TextFormField(
-                        onChanged: (value) {
-                          // setState(() {
-                          //   // description = value;
-                          // });
-                        },
-                        style: const TextStyle(color: Colors.black),
-                        decoration: const InputDecoration(
-                          labelText: "Seats",
-                          labelStyle: TextStyle(color: Colors.black),
+                        TextFormField(
+                          onChanged: (value) {
+                            // setState(() {
+                            //   // description = value;
+                            // });
+                          },
+                          style: const TextStyle(color: Colors.black),
+                          decoration: const InputDecoration(
+                            labelText: "Seats",
+                            labelStyle: TextStyle(color: Colors.black),
+                          ),
+                          autofocus: true,
                         ),
-                        autofocus: true,
-                      ),
-                      DropdownButtonFormField<String>(
-                        // value: selectedType,
-                        items: <String>[
-                          'AC Car',
-                          'Car'
-                              'Lodar'
-                              'Moto'
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                        onChanged: (String? newValue) {
-                          // setState(() {
-                          //   // selectedType = newValue!;
-                          // });
-                        },
-                        style: const TextStyle(color: Colors.black),
-                        decoration: const InputDecoration(
-                          labelText: "category",
-                          labelStyle: TextStyle(color: Colors.black),
+                        DropdownButtonFormField<String>(
+                          // value: selectedType,
+                          items: <String>[
+                            'AC Car',
+                            'Car'
+                                'Lodar'
+                                'Moto'
+                          ].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          onChanged: (String? newValue) {
+                            // setState(() {
+                            //   // selectedType = newValue!;
+                            // });
+                          },
+                          style: const TextStyle(color: Colors.black),
+                          decoration: const InputDecoration(
+                            labelText: "category",
+                            labelStyle: TextStyle(color: Colors.black),
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 40),
-                      button(
-                        buttonText: "Search",
-                        buttoncolor: Colors.black,
-                        buttonheight: 50,
-                        onTap: () {
-                          showtransport(
-                            context,
-                          );
-                        },
-                      )
-                    ],
+                        const SizedBox(height: 40),
+                        button(
+                          buttonText: "Search",
+                          buttoncolor: Colors.black,
+                          buttonheight: 55,
+                          onTap: () {
+                            showtransport(
+                              context,
+                            );
+                          },
+                        )
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -203,7 +208,7 @@ void showform(BuildContext context) {
                         button(
                           buttonText: "Search",
                           buttoncolor: Colors.black,
-                          buttonheight: 50,
+                          buttonheight: 55,
                           onTap: () {
                             showtransport(
                               context,
@@ -1321,7 +1326,7 @@ void Driverdetail(BuildContext context) {
                   button(
                     buttonText: "Start Trip",
                     buttoncolor: Colors.black,
-                    buttonheight: 50,
+                    buttonheight: 55,
                     onTap: () {
                       rideconfirm(context);
                     },
@@ -1827,3 +1832,8 @@ void rideconfirm(BuildContext context) {
     ),
   );
 }
+
+
+
+
+

@@ -1,10 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:rideapp/res/constant/button.dart';
 import 'package:rideapp/view/screens/register.dart';
 import 'package:get/get.dart';
 
-class location_enable extends StatelessWidget {
-  const location_enable({super.key});
+
+class location_enable extends StatefulWidget {
+   location_enable({super.key});
+
+  @override
+  State<location_enable> createState() => _location_enableState();
+}
+
+class _location_enableState extends State<location_enable> {
+bool isLoading = false;
+
+Future<Position> getUserCurrentLocation()async{
+await Geolocator.requestPermission().then((value){
+}).onError((error, stackTrace) {
+print("error"+error.toString());
+
+});
+
+return await Geolocator.getCurrentPosition();
+}
 
   @override
   Widget build(BuildContext context) {
@@ -59,14 +78,43 @@ class location_enable extends StatelessWidget {
                 SizedBox(height: 50),
 
                 // for  button
-                button(
-                  buttonText: "ALLOW",
-                  buttoncolor: Colors.black,
-                  buttonheight: 50,
-                  onTap: () {
-                    Get.to(register());
-                  },
-                )
+
+
+                SizedBox(
+                                height: 55,
+                                width: double.infinity,
+                                child: DecoratedBox(
+                                    decoration: BoxDecoration(
+                                        color:Colors.black ,
+                                        borderRadius: BorderRadius.circular(20)),
+                                    child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            backgroundColor:  Colors.black ,),
+                                        onPressed: (){
+                                          setState(() {
+                      isLoading=true;
+                    });
+                    getUserCurrentLocation().then((value)async {
+                      
+                      print(value.latitude.toString()+" " + value.longitude.toString());
+
+                    }).whenComplete((){
+                       setState(() {
+    isLoading=false;
+  });
+                      Get.to(register());
+                    });
+                                        },
+                                        child:   isLoading ? CircularProgressIndicator( color: Colors.white,) :  Text(
+                                          "Allow",
+                                          style: const TextStyle(
+                                              fontSize: 20,
+                                              color: Colors.white),
+                                        ),
+                                        
+                                        )),
+                              ),
+                
               ],
             ),
           ),

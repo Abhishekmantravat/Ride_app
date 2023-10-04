@@ -23,7 +23,7 @@ class _transporttypeState extends State<transporttype> {
               backgroundColor: Colors.white,
               leading: BackButton(
                   color: Colors.black,
-                  onPressed: () async {
+                  onPressed: ()  {
                     setState(() {
                       isSwitched = false;
                       saveSwitchValue(isSwitched);

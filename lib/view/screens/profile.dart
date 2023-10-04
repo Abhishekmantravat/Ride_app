@@ -1,5 +1,12 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
 
+import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:image_picker/image_picker.dart';
+
+import '../../res/constant/button.dart';
+
+  File? galleryFile;
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -7,8 +14,10 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  final picker = ImagePicker();
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
@@ -26,16 +35,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Stack(
                       children: [
                         SizedBox(
-                          width: 120,
-                          height: 120,
-                          child: ClipRRect(
-                              borderRadius: BorderRadius.circular(100),
-                              child:    Image.asset("assets/images/ride ac.png",
-                              fit: BoxFit.cover,
-                      )
-                              //  Image(image: AssetImage(userprofiledata[index]["image"])),
-                              ),
-                        ),
+                            width: 120,
+                            height: 120,
+                            child: galleryFile == null
+                                ? ClipRRect(
+                                    borderRadius: BorderRadius.circular(100),
+                                    child: Image.asset(
+                                      "assets/images/ride ac.png",
+                                      fit: BoxFit.cover,
+                                    ))
+                                : ClipRRect(
+                                    borderRadius: BorderRadius.circular(100),
+                                    child: Image.file(
+                                      galleryFile!,
+                                      fit: BoxFit.cover,
+                                    ))
+                                    ),
                         Positioned(
                             bottom: 0,
                             right: 0,
@@ -46,7 +61,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   borderRadius: BorderRadius.circular(100),
                                   color: Colors.blue),
                               child: IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  _showPicker(context: context);
+                                },
                                 icon: const Icon(Icons.edit),
                                 iconSize: 20,
                                 color: Colors.white,
@@ -60,8 +77,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       height: 14,
                     ),
                     const Text("Abhishek Mishra",
-                        style: TextStyle(
-                            color: Color.fromARGB(255, 0, 0, 0))),
+                        style: TextStyle(color: Color.fromARGB(255, 0, 0, 0))),
                     const Text(
                       "6386444795",
                       style: TextStyle(color: Color.fromARGB(255, 48, 45, 45)),
@@ -83,7 +99,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       TextFormField(
                         style: const TextStyle(color: Colors.grey),
-                        
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
@@ -96,7 +111,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           prefixIconColor: Colors.grey,
                         ),
                       ),
-                      
                       const SizedBox(
                         height: 15,
                       ),
@@ -114,15 +128,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           labelStyle: const TextStyle(color: Colors.grey),
                         ),
                       ),
-                      
-                     
                       const SizedBox(
                         height: 15,
                       ),
-
                       TextFormField(
                         style: const TextStyle(color: Colors.grey),
-                        
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
@@ -135,30 +145,71 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           prefixIconColor: Colors.grey,
                         ),
                       ),
-
- const SizedBox(
+                      const SizedBox(
                         height: 15,
                       ),
-                    
-                       SizedBox(
-                  height: 55,
-                  width: double.infinity,
-child:DecoratedBox(decoration: BoxDecoration(
-  color:  Colors.black,
-  borderRadius: BorderRadius.circular(20)
-),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
-                      onPressed: () {}, child: const Text("Update Information",style: TextStyle(color:Colors.white),)),
-  )  ),
+                     
+
+                                      button(buttonText: "Update Information", onTap: (){}, buttonheight: 55, buttoncolor: Colors.black)
+
                     ],
                   ),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
-               
               ]))),
+    );
+  }
+
+  void _showPicker({
+    required BuildContext context,
+  }) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return SafeArea(
+          child: Wrap(
+            children: <Widget>[
+              ListTile(
+                leading: const Icon(Icons.photo_library),
+                title: const Text('Photo Library'),
+                onTap: () {
+                  getImage(ImageSource.gallery);
+                  Navigator.of(context).pop();
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.photo_camera),
+                title: const Text('Camera'),
+                onTap: () {
+                  getImage(ImageSource.camera);
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Future getImage(
+    ImageSource img,
+  ) async {
+    final pickedFile = await picker.pickImage(source: img);
+    XFile? xfilePick = pickedFile;
+    setState(
+      () {
+        if (xfilePick != null) {
+          galleryFile = File(pickedFile!.path);
+          ScaffoldMessenger.of(context).showSnackBar(// is this context <<<
+               SnackBar(content: Text(pickedFile.path as String)));
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(// is this context <<<
+              const SnackBar(content: Text('Nothing is selected')));
+        }
+      },
     );
   }
 }

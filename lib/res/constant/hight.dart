@@ -21,6 +21,7 @@ class ScreenUtil {
 // }
 
 bool isSwitched = false;
+// bool issearch = false;
 
 
 
