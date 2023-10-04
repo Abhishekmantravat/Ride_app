@@ -20,8 +20,8 @@ class _contactState extends State<contact> {
 
   void getPhoneData() async {
     if (await FlutterContacts.requestPermission()) {
-      contacts = await FlutterContacts.getContacts(
-          withProperties: true, withPhoto: true);
+      contacts = await FlutterContacts.getContacts( 
+          withProperties: true, deduplicateProperties: false, sorted: true, withAccounts: true, withThumbnail: true, withGroups: true,  withPhoto: true);
 
       setState(() {});
     }

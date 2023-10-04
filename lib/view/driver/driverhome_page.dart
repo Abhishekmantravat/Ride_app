@@ -1,12 +1,18 @@
 import 'package:flutter/Material.dart';
 import 'package:get/get.dart';
+import 'package:rideapp/view/driver/ridesearching.dart';
+import 'package:rideapp/view/driver/wallet.dart';
 import 'package:rideapp/view/screens/contact.dart';
 import 'package:rideapp/view/screens/homescreen.dart';
 import 'package:rideapp/view/screens/profile.dart';
+import 'package:rideapp/view/screens/request_history.dart';
+import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:rideapp/res/constant/hight.dart';
 import '../dialogBox/driverequestdialog.dart';
-import '../dialogBox/driverequestdialog.dart';
+import '../screens/Safety.dart';
+
+    bool issearch = true;
 
 class driverhome_page extends StatefulWidget {
   const driverhome_page({super.key});
@@ -16,8 +22,48 @@ class driverhome_page extends StatefulWidget {
 }
 
 class _driverhome_pageState extends State<driverhome_page> {
+   int _selectedIndex = 0; // Index of the selected tab
+
+  final List<Widget> _pages = [
+    // issearch == false ?
+
+       HomeScreen(),
+        // passenger_fetch() ,
+   wallet(),
+    Center(
+      child: Text("Account Page"),
+    ),
+  ];
+// @override
+  // void didUpdateWidget(covariant driverhome_page oldWidget) {
+
+  //   super.didUpdateWidget(oldWidget);
+  //   print("triger");
+  // }
+
+
+
+  void _onTabTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+
+//   void updateui(){
+// print("dfdf");
+//     setState(() {
+//       if(issearch==true){
+//         issearch=false;
+//       }
+     
+//     });
+//   }
+  
+  
   Widget build(BuildContext context) {
     return isSwitched == false
+    
         ? const homescreen()
         : Scaffold(
             backgroundColor: Colors.white,
@@ -37,21 +83,52 @@ class _driverhome_pageState extends State<driverhome_page> {
                               color: Color.fromARGB(255, 255, 255, 255)),
                           accountName: const Text(
                             "Abhishek Mishra",
-                            style: TextStyle(fontSize: 18, color: Colors.black),
+                            style: TextStyle(fontSize: 14, color: Colors.black),
                           ),
-                          accountEmail: const Text("6386444795",
-                              style: TextStyle(color: Colors.black)),
+                          accountEmail: Row(
+                            children: [
+                              const Text("6386444795",
+                                  style: TextStyle(color: Colors.black)),SizedBox(width: 115),
+                                      Icon(
+                                        Icons.star,
+                                        color:
+                                            Color.fromARGB(255, 255, 216, 59),
+                                      ),
+                                      
+                                      Text("5.0", style: TextStyle(color: Colors.black, fontSize: 15
+                                      ),)
+                            ],
+                          ),
                           currentAccountPictureSize: const Size.square(50),
 
-                          currentAccountPicture: CircleAvatar(
-                              child: TextButton(
-                                  onPressed: () {
-                                    Get.to(ProfileScreen());
-                                  },
-                                  child: Image.asset(
-                                    "assets/images/ride ac.png",
-                                    fit: BoxFit.fill,
-                                  ))),
+                          currentAccountPicture: InkWell(
+
+                            onTap: (){
+                               Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ProfileScreen()));
+                            },
+                            child: SizedBox(
+
+                              width: 50,
+                              height: 50,
+                              child: galleryFile == null
+                                  ? ClipRRect(
+                                      borderRadius: BorderRadius.circular(100),
+                                      child: Image.asset(
+                                        "assets/images/ride ac.png",
+                                        fit: BoxFit.cover,
+                                      ))
+                                  : ClipRRect(
+                                      borderRadius: BorderRadius.circular(100),
+                                      child: Image.file(
+                                        galleryFile!,
+                                        fit: BoxFit.cover,
+                                      ))
+                                      ),
+                          ),
                           
                         ), //UserAccountDrawerHeader
                       ), //DrawerHeader
@@ -87,48 +164,7 @@ class _driverhome_pageState extends State<driverhome_page> {
                         height: 7,
                       ),
 
-                      ListTile(
-                        textColor: const Color.fromARGB(255, 0, 0, 0),
-                        iconColor: const Color.fromARGB(255, 0, 0, 0),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        leading: const Icon(Icons.timer),
-                        title: const Text(' Request contact '),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const contact()));
-                        },
-                      ),
-
-                      const SizedBox(
-                        height: 7,
-                      ),
-                      ListTile(
-                        textColor: const Color.fromARGB(255, 0, 0, 0),
-                        iconColor: const Color.fromARGB(255, 0, 0, 0),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        leading: const Icon(Icons.group_add),
-                        title: const Text(' Outstation '),
-                        onTap: () {
-                          var whatsappUrl = "whatsapp://send?phone=91+7651872097" +
-                              "&text=${Uri.encodeComponent("_messageController")}";
-                          try {
-                            launch(whatsappUrl);
-                          } catch (e) {
-                            //To handle error and display error message
-                            print("not open");
-                          }
-                        },
-                      ),
-
-                      const SizedBox(
-                        height: 7,
-                      ),
+                      
 
                       ListTile(
                         textColor: const Color.fromARGB(255, 0, 0, 0),
@@ -138,22 +174,26 @@ class _driverhome_pageState extends State<driverhome_page> {
                         ),
                         leading: const Icon(Icons.group_add),
                         title: const Text(' Safety '),
-                        onTap: () {},
+                        onTap: () {
+                             Get.to(                          saftey()
+);
+                        },
                       ),
-
-                      const SizedBox(
+const SizedBox(
                         height: 7,
                       ),
 
-                      ListTile(
+                     ListTile(
                         textColor: const Color.fromARGB(255, 0, 0, 0),
                         iconColor: const Color.fromARGB(255, 0, 0, 0),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
                         leading: const Icon(Icons.group_add),
-                        title: const Text(' Setting '),
-                        onTap: () {},
+                        title: const Text(' Request History '),
+                        onTap: () {
+                          Get.to(Request_history());
+                        },
                       ),
 
                       const SizedBox(
@@ -168,7 +208,14 @@ class _driverhome_pageState extends State<driverhome_page> {
                         leading: const Icon(Icons.support_agent),
                         title: const Text("Support"),
                         onTap: () {
-                        
+                         var whatsappUrl = "whatsapp://send?phone=91+7651872097" +
+                              "&text=${Uri.encodeComponent("What's a problem")}";
+                          try {
+                            launch(whatsappUrl);
+                          } catch (e) {
+                            //To handle error and display error message
+                            print("not open");
+                          }
                         },
                       ),
                       const SizedBox(
@@ -182,7 +229,10 @@ class _driverhome_pageState extends State<driverhome_page> {
                         ),
                         leading: const Icon(Icons.share_sharp),
                         title: const Text(' Share '),
-                        onTap: () {},
+                        onTap: () {
+                          Share.share('hey! check out this new app https://youtu.be/cY4nGCw-JxY?si=pRZgLLRVCimiFyKl', subject: 'New App');
+
+                        },
                       ),
 
                       const SizedBox(
@@ -208,11 +258,50 @@ class _driverhome_pageState extends State<driverhome_page> {
                     ],
                   ),
                 )),
-            body: Center(
+ body: _pages[_selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_balance_wallet),
+            label: 'Wallet',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_circle),
+            label: 'Account',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.blue,
+        onTap: _onTabTapped,
+      ),     
+          );
+  }
+}
+
+
+
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body:  
+      Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+
+
+
+                  
                   GestureDetector(
                     onTap: () async {
                       Requestride(context);
@@ -253,7 +342,6 @@ class _driverhome_pageState extends State<driverhome_page> {
                 ],
               ),
             ),
-          );
+    );
   }
 }
-

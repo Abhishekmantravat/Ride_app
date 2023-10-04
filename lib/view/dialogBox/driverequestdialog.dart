@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rideapp/res/constant/button.dart';
+import 'package:rideapp/view/driver/driverhome_page.dart';
 import 'package:rideapp/view/driver/ridesearching.dart';
+
+import '../../res/constant/hight.dart';
 
 void Requestride(BuildContext context) {
   double screenHeight = MediaQuery.of(context).size.height;
@@ -99,17 +102,23 @@ void Requestride(BuildContext context) {
                         ],
                       ),
                       const SizedBox(height: 40),
-                     
-                      
+                      button(
+                        buttonText: "Search",
+                        buttoncolor: Colors.black,
+                        buttonheight: 55,
+                        onTap: () {
+                          Get.to(passenger_fetch(
+                          
+                          )
+                    
+                            );
+                      issearch = true;
+                             
+                            //   setState((){
 
-                       button(
-                  buttonText: "Search",
-                  buttoncolor: Colors.black,
-                  buttonheight: 50,
-                  onTap: () {
-                    Get.to(drivesearch());
-                  },
-                )
+                            // });
+                        },
+                      )
                     ],
                   ),
                 ),
@@ -121,3 +130,5 @@ void Requestride(BuildContext context) {
     ),
   );
 }
+
+
